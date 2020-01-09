@@ -7,10 +7,16 @@ handles getting location on Android and iOS. It also provides callbacks when loc
   <img src="https://raw.githubusercontent.com/Lyokone/flutterlocation/master/src/demo_readme.gif" alt="Demo App" style="margin:auto" width="372" height="686">
 </p>
 
-# Breaking Changes
-As of the 2.0 version, you have to call the returned location is an LocationData Object. You can just access the different attribute like so : location.latitude.
-See the API part of the README for the changes.
-This version also switched to AndroidX instead of the old Android Support library. In order to use it you have to do the following things:
+## :sparkles: New experimental feature :sparkles:
+To get location updates even your app is closed, you can see [this wiki post](https://github.com/Lyokone/flutterlocation/wiki/Background-Location-Updates).
+
+
+## Getting Started
+### Android
+In order to use this plugin in Android, you have to add this permission in AndroidManifest.xml :
+```xml
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
 
 Update your gradle.properties file with this:
 ```
@@ -29,15 +35,6 @@ Please also make sure that you have those dependencies in your build.gradle:
   compileSdkVersion 28
 ```
 
-
-## Getting Started
-### Android
-In order to use this plugin in Android, you have to add this permission in AndroidManifest.xml :
-```xml
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-```
-Permission check for Android 6+ was added.
-
 ### iOS
 And to use it in iOS, you have to add this permission in Info.plist :
 ```xml
@@ -45,6 +42,8 @@ NSLocationWhenInUseUsageDescription
 NSLocationAlwaysUsageDescription
 ```
 **Warning:** there is a currently a bug in iOS simulator in which you have to manually select a Location several in order for the Simulator to actually send data. Please keep that in mind when testing in iOS simulator.  
+
+The OnNmeaMessageListener property is only available for minimum SDK of 24.
 
 ### Example App
 The example app uses [Google Maps Flutter Plugin](https://github.com/flutter/plugins/tree/master/packages/google_maps_flutter), add your API Key in the `AndroidManifest.xml` and in `AppDelegate.m` to use the Google Maps plugin. 
