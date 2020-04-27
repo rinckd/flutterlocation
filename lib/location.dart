@@ -17,7 +17,7 @@ class LocationData {
   final double heading;
   final double time;
 
-  LocationData._(this.latitude, this.longitude, this.accuracy, this.altitude,
+  LocationData(this.latitude, this.longitude, this.accuracy, this.altitude,
       this.speed, this.speedAccuracy, this.heading, this.time);
 
   factory LocationData.fromMap(Map<String, double> dataMap) {
@@ -53,7 +53,6 @@ void callbackDispatcher() {
     handlerRawr(locationData);
   });
 }
-
 
 /// https://developers.google.com/android/reference/com/google/android/gms/location/LocationRequest
 /// https://developer.apple.com/documentation/corelocation/cllocationaccuracy?language=objc
@@ -109,17 +108,20 @@ class Location {
     return _onLocationChanged;
   }
 
-  Future<bool> registerBackgroundLocation(void Function(List<LocationData> id) callback) {    
-    int rawHandle = PluginUtilities.getCallbackHandle(callbackDispatcher).toRawHandle();
+  Future<bool> registerBackgroundLocation(
+      void Function(List<LocationData> id) callback) {
+    int rawHandle =
+        PluginUtilities.getCallbackHandle(callbackDispatcher).toRawHandle();
     int rawCallback = PluginUtilities.getCallbackHandle(callback).toRawHandle();
     return _channel.invokeMethod('registerBackgroundLocation', {
-        "rawHandle": rawHandle,
-        "rawCallback": rawCallback
-      }).then((result) => result == 1);
+      "rawHandle": rawHandle,
+      "rawCallback": rawCallback
+    }).then((result) => result == 1);
   }
 
-  Future<bool> removeBackgroundLocation() {    
-    return _channel.invokeMethod('removeBackgroundLocation').then((result) => result == 1);
+  Future<bool> removeBackgroundLocation() {
+    return _channel
+        .invokeMethod('removeBackgroundLocation')
+        .then((result) => result == 1);
   }
-
 }
